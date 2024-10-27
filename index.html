@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disario</title>
+    <meta
+      name="description"
+      content="Disario est. in 2023. Carefully designed pieces for contemporary use. Men's ready-to-wear and small leather goods"
+    />
+    <meta name="keywords" content="" />
+    <link rel="shortcut icon" type="image/png" href="images/ddddd-favicon.png" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav id="menu">
+        <img id="close" src="images/x.svg" alt="" />
+        <a href="looks.html">Looks</a>
+        <a href="about.html">About</a
+        ><a id="desktop-hidden" href="info.html">Information</a>
+        <a href="https://www.instagram.com/disario_collection" target="_blank"
+          >Instagram</a
+        >
+      </nav>
+      <a class="logo" href="index.html"> Disario </a>
+
+      <a id="desktop-visible" href="info.html">Information</a>
+
+      <img id="hamburgermenu" src="images/list.svg" alt="" />
+    </header>
+
+    <div class="landing-grid">
+      <div class="landing-image">
+        <img src="images/face_close_poster.jpg" alt="" />
+      </div>
+
+      <div class="landing-image" style="z-index: 1">
+        <img src="images/wavy_jacket_1-1.jpg" alt="" />
+      </div>
+    </div>
+
+    <script src="js/menu.js"></script>
+
+    <script>
+      const landingImages = document.querySelectorAll(".landing-image");
+      const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1.0,
+      };
+
+      const observer = new IntersectionObserver(function (entries, observer) {
+        entries.forEach((entry) => {
+          console.log(entry); // Debugging: Log each entry
+          if (entry.isIntersecting) {
+            document.body.style.overflow = "auto";
+          } else {
+            document.body.style.overflow = "hidden";
+          }
+        });
+      }, options);
+
+      landingImages.forEach((image) => {
+        observer.observe(image);
+      });
+
+      // Handle wheel events for desktop
+      window.addEventListener("wheel", function (event) {
+        console.log(event.deltaY); // Debugging: Log the scroll direction
+        if (event.deltaY > 0) {
+          landingImages[1].scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+
+      // Handle touch events for mobile
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      window.addEventListener("touchstart", function (event) {
+        touchStartY = event.changedTouches[0].screenY;
+      });
+
+      window.addEventListener("touchend", function (event) {
+        touchEndY = event.changedTouches[0].screenY;
+        handleGesture();
+      });
+
+      function handleGesture() {
+        console.log(`touchStartY: ${touchStartY}, touchEndY: ${touchEndY}`); // Debugging: Log touch positions
+        if (touchEndY < touchStartY) {
+          landingImages[1].scrollIntoView({ behavior: "smooth" });
+        }
+        if (touchEndY > touchStartY) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+    </script>
+  </body>
+</html>
