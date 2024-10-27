@@ -443,7 +443,7 @@ h3 {
   }
 
   .space-bottom {
-    margin-bottom: 0px !important;
+    margin-bottom: 50px !important;
   }
 
   .info-grid {
@@ -479,7 +479,7 @@ h3 {
   }
 
   P {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .about-text {
